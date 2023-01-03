@@ -6,6 +6,7 @@ base = Tk()
 base.geometry("400x175")
 base.title("Downloader")
 
+
 def load():
     # function only allows download if link is valid
     try:
@@ -13,17 +14,19 @@ def load():
         base.update()
         vid = YouTube(link.get()).streams.get_highest_resolution()
         vid.download()
-        link.set("Download successful")
+        myVar.set("Download successful")
     except Exception as e:
         myVar.set("Download Error")
         base.update()
         link.set("Enter correct link")
 
-# generate the input boxes, text on GUI
-Label(base, text="YouTube Downloader", font="SFPro 15 bold").pack()
+
+# generate the input box, text on GUI
+my_font = "SFPro 15 bold"
+Label(base, text="YouTube Downloader", font=my_font).pack()
 myVar = StringVar()
 myVar.set("Enter link below")
-Entry(base, textvariable=myVar, width=35).pack(pady=10)
+Label(base, textvariable=myVar, font=my_font).pack(pady=5)
 link = StringVar()
 Entry(base, textvariable=link, width=35).pack(pady=10)
 Button(base, text="Download", command=load).pack()
