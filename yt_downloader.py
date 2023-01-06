@@ -4,24 +4,13 @@ import os
 
 # base for GUI
 base = Tk()
-base.geometry("400x250")
+base.geometry("400x225")
 base.title("Downloader")
 
 
-def loadmp4():
-    # function only allows download if link is valid
-    try:
-        myVar.set("Downloading...")
-        base.update()
-        vid = YouTube(link.get()).streams.get_highest_resolution()
-        vid.download()
-        myVar.set("Download successful")
-    except Exception as e:
-        myVar.set("Download Error")
-        base.update()
-        link.set("Enter correct link")
-
 def loadmp3():
+    # downloads video in .mp3 format
+    # function only allows download if link is valid
     try:
         myVar.set("Downloading...")
         base.update()
@@ -30,6 +19,20 @@ def loadmp3():
         name, ext = os.path.splitext(file_out)
         file_rename = name + ".mp3"
         os.rename(file_out, file_rename)
+        myVar.set("Download successful")
+    except Exception as e:
+        myVar.set("Download Error")
+        base.update()
+        link.set("Enter correct link")
+
+
+def loadmp4():
+    # downloads video in .mp4 format
+    try:
+        myVar.set("Downloading...")
+        base.update()
+        vid = YouTube(link.get()).streams.get_highest_resolution()
+        vid.download()
         myVar.set("Download successful")
     except Exception as e:
         myVar.set("Download Error")
@@ -46,7 +49,6 @@ Label(base, textvariable=myVar, font=my_font).pack(pady=5)
 link = StringVar()
 Entry(base, textvariable=link, width=35).pack(pady=7)
 Button(base, text="Download as .mp3", command=loadmp3).pack(pady=10)
-Button(base, text="Download as .mp4", command=loadmp4).pack()
+Button(base, text="Download as .mp4", command=loadmp4).pack(pady=7)
 
 base.mainloop()
-
