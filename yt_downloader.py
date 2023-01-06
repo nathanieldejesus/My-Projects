@@ -1,5 +1,6 @@
 from tkinter import *
 from pytube import YouTube
+import os
 
 # base for GUI
 base = Tk()
@@ -25,7 +26,10 @@ def loadmp3():
         myVar.set("Downloading...")
         base.update()
         vid = YouTube(link.get()).streams.filter(only_audio=True).first()
-        vid.download()
+        file_out = vid.download()
+        name, ext = os.path.splitext(file_out)
+        file_rename = name + ".mp3"
+        os.rename(file_out, file_rename)
         myVar.set("Download successful")
     except Exception as e:
         myVar.set("Download Error")
