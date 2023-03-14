@@ -62,7 +62,7 @@ def loadmp4():
         link.set("Enter correct link")
 
 
-# generate the input box, text on GUI
+# generate input box, text on GUI
 my_font = "SFPro 15 bold"
 Label(base, text="YouTube Downloader", font=my_font).pack()
 
